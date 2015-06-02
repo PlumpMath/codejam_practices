@@ -17,17 +17,17 @@
          (dictionary (let loop ((i 1) (result '()))
                        (if (> i D) result
                            (loop (+ i 1) (cons (read-line in) result)))))
-         (line (lambda () (string-gsub
-                      (string-gsub
-                       (read-line in) "(" "[") ")" "]"))))
+         (line (lambda () (make-regexp (string-gsub
+                                   (string-gsub
+                                    (read-line in) "(" "[") ")" "]")))))
     (let loop ((i 1))
       (if (<= i N)
-          (let* ((l (line)))
+          (let* ((r (line)))
             (display (format #f "Case #~a: ~a\n"
                              i
-                             (length    ;FIXME: it is very slow
+                             (length    ;FIXME: it is slow
                               (filter (lambda (x)
-                                        (string-match l x))
+                                        (regexp-exec r x))
                                       dictionary))) out)
             (loop (+ i 1)))))))
 
