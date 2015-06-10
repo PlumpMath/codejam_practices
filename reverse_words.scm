@@ -7,13 +7,13 @@
          (out (open-output-file file-out))
          (T (string->number (read-line in))))
     (let loop ((i 1))
-      (if (<= i T)
-          (begin (display
-                  (format #f "Case #~a: ~a\n" i
-                          (string-join
-                           (reverse (string-split
-                                     (read-line in) #\space)))) out)
-                 (loop (+ i 1)))))))
+      (cond ((<= i T)
+             (display
+              (format #f "Case #~a: ~a\n" i
+                      (string-join
+                       (reverse (string-split
+                                 (read-line in) #\space)))) out)
+             (loop (+ i 1)))))))
 
 (unless (> (length (command-line)) 1) (exit 1))
 
